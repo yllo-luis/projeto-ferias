@@ -1,12 +1,18 @@
 package br.ucsal.pratica.yllo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Album extends Musica {
+	private static Integer codAlbum = 0;
 	private String nomeAlbum;
 	private Integer anoLancamento;
 	private String nomeGravadora;
+	private List<Musica> musicas = new ArrayList<>();
 	
 	public Album(String nome, String caminhoMusica, String nomeAlbum, Integer anoLancamento, String nomeGravadora) {
 		super(nome, caminhoMusica);
+		codAlbum++;
 		this.nomeAlbum = nomeAlbum;
 		this.anoLancamento = anoLancamento;
 		this.nomeGravadora = nomeGravadora;
@@ -18,6 +24,14 @@ public class Album extends Musica {
 
 	public void setNomeAlbum(String nomeAlbum) {
 		this.nomeAlbum = nomeAlbum;
+	}
+
+	public static Integer getCodAlbum() {
+		return codAlbum;
+	}
+
+	public List<Musica> getMusicas() {
+		return musicas;
 	}
 
 	public Integer getAnoLancamento() {
@@ -34,6 +48,10 @@ public class Album extends Musica {
 
 	public void setNomeGravadora(String nomeGravadora) {
 		this.nomeGravadora = nomeGravadora;
+	}
+	
+	public void addMusicas(Musica musica) { 
+		musicas.add(musica);
 	}
 
 	@Override

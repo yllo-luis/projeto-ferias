@@ -10,15 +10,15 @@ public class Musica {
 	private String artista;
 	private String genero;
 	private List<String> compositores = new ArrayList<>();
-	private List<Album> album = new ArrayList<>();
 	private String caminhoMusica;
-	File musica = new File(caminhoMusica);
+	File musica;
 	
 	public Musica(String nome, String caminhoMusica) {
 		super();
 		cod++;
 		this.nome = nome;
 		this.caminhoMusica = caminhoMusica;
+		musica = new File(caminhoMusica);
 	}
 	
 	public static Integer getCod() {
@@ -57,14 +57,6 @@ public class Musica {
 		return compositores;
 	}
 	
-	public List<Album> getAlbum() {
-		return album;
-	}
-	
-	public void addAlbum(Album album) { 
-		this.album.add(album);
-	}
-	
 	public void addCompositor(String compositor) { 
 		this.compositores.add(compositor);
 	}
@@ -72,8 +64,10 @@ public class Musica {
 	@Override
 	public String toString() {
 		return "Musica [nome=" + nome + ", artista=" + artista + ", genero=" + genero + ", compositores=" + compositores
-				+ ", album=" + album + ", caminhoMusica=" + caminhoMusica + ", musica=" + musica + "]";
+				+ ", caminhoMusica=" + caminhoMusica + ", musica=" + musica + "]";
 	}
+
+	
 	
 	
 }
