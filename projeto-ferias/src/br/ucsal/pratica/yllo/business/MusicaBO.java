@@ -9,11 +9,11 @@ import java.io.File;
 import java.net.URL;
 import java.util.Map;
 import javax.media.format.AudioFormat;
+import java.time.*;
 
 public class MusicaBO {
-	
 	public static void tocarMusica(String nome) {
-
+		
 		Format input1 = new AudioFormat(AudioFormat.MPEGLAYER3);
 		Format input2 = new AudioFormat(AudioFormat.MPEG);
 		Format output = new AudioFormat(AudioFormat.LINEAR);
@@ -31,6 +31,9 @@ public class MusicaBO {
 					System.out.println(url.getFile());
 					Player inputPlay = Manager.createPlayer(url);
 					inputPlay.start();
+					Time time = inputPlay.getDuration();
+					System.out.println(inputPlay.getMediaTime().toString());
+					System.out.println(time);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
@@ -51,19 +54,15 @@ public class MusicaBO {
 		MusicaDAO.removerMusica(cod);
 	}
 	
-	public static void adicionarArtista() { 
-		
+	public static void adicionarArtista(Musica musica, String artista) { 
+		musica.setArtista(artista);
 	}
 	
 	public static void adicionarGenero() { 
 		
 	}
 	
-	public static void adicionarMusicaAlbum() { 
-		
-	}
-	
-	private static File obterCaminhoMusica(Musica musica) {
+	static File obterCaminhoMusica(Musica musica) {
 		return musica.getMusica();
 	}
 	

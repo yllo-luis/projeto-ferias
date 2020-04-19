@@ -9,7 +9,7 @@ public class Executor {
 		 * Entry point para execução da interface grafica
 		 */
 		MusicaBO.adicionarMusica("Weekend Love",
-				"C:\\Users\\yllol\\Music\\Yuria Kokubu\\Yurie Kokubu - Weekend Love - [1983] Relief 72 hours.mp3");
+				"C:\\Users\\yllol\\Music\\NORIKI\\NORIKI with FUKUI - Gassun - [1989] CRESCENT.mp3");
 		MusicaBO.tocarMusica("Weekend Love");
 	}
 

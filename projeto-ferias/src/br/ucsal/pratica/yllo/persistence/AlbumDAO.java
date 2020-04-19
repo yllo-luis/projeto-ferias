@@ -15,7 +15,7 @@ public class AlbumDAO {
 	
 	public static void removerAlbum(Integer codAlbum) throws MusicaNaoEncontradaException { 
 		if(albuns.remove(codAlbum).equals(null)) { 
-			throw new MusicaNaoEncontradaException("Album n√£o encontrado!");
+			throw new MusicaNaoEncontradaException("Album n„o encontrado!");
 		}
 	}
 	

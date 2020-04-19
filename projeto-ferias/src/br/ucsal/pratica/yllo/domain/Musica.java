@@ -8,7 +8,7 @@ public class Musica {
 	private static Integer cod = 0;
 	private String nome;
 	private String artista;
-	private String genero;
+	private GeneroENUM genero;
 	private List<String> compositores = new ArrayList<>();
 	private String caminhoMusica;
 	File musica;
@@ -45,11 +45,11 @@ public class Musica {
 		this.artista = artista;
 	}
 	
-	public String getGenero() {
+	public GeneroENUM getGenero() {
 		return genero;
 	}
 	
-	public void setGenero(String genero) {
+	public void setGenero(GeneroENUM genero) {
 		this.genero = genero;
 	}
 	
