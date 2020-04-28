@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Musica {
-	private static Integer cod = 0;
+	private Integer codigo;
 	private String nome;
 	private String artista;
 	private GeneroENUM genero;
@@ -13,17 +13,17 @@ public class Musica {
 	private String caminhoMusica;
 	File musica;
 	
-	public Musica(String nome, String caminhoMusica) {
-		super();
-		cod++;
+	public Musica(String nome, String caminhoMusica, Integer cod) {
+		super(); 
 		this.nome = nome;
 		this.caminhoMusica = caminhoMusica;
 		this.genero = GeneroENUM.GENERO_DESCONHECIDO;
+		this.codigo = cod;
 		musica = new File(caminhoMusica);
 	}
 	
-	public static Integer getCod() {
-		return cod;
+	public Integer getCod() {
+		return codigo;
 	}
 	
 	public File getMusica() {
@@ -61,12 +61,14 @@ public class Musica {
 	public void addCompositor(String compositor) { 
 		this.compositores.add(compositor);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Musica [nome=" + nome + ", artista=" + artista + ", genero=" + genero + ", compositores=" + compositores
-				+ ", caminhoMusica=" + caminhoMusica + ", musica=" + musica + "]";
+				+ ", caminhoMusica=" + caminhoMusica + ", musica=" + musica + "]" + ", codigo =" + codigo;
 	}
+	
+	
 
 	
 	

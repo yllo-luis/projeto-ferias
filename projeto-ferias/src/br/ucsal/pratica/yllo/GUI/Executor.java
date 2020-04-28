@@ -9,6 +9,12 @@ public class Executor {
 		 * Entry point para execução da interface grafica
 		 */
 		MusicaBO.acharMusica();
+		MusicaBO.tocarMusica(445);
+		
+		/*
+		 * TODO consertar bugs em playbay de musica...
+		 * Por algum motivo certas musicas se recusam a tocar(WTF?!)
+		 */
 	}
 
 }

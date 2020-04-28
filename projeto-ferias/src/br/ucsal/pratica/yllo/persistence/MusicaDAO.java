@@ -10,12 +10,12 @@ public class MusicaDAO {
 	private static Map<Integer,Musica> musicas = new HashMap<Integer,Musica>();
 	
 	public static void adicionarMusica(Musica musica) { 
-		musicas.put(Musica.getCod(), musica);
+		musicas.put(musica.getCod(), musica);
 	}
 	
-	public static void removerMusica(Integer cod) throws MusicaException { 
-		musicas.remove(cod);
-		if(musicas.remove(cod).equals(null)) { 
+	public static void removerMusica(Integer codigo) throws MusicaException { 
+		musicas.remove(codigo);
+		if(musicas.remove(codigo).equals(null)) { 
 			throw new MusicaException("Musica não encontrada");
 		}
 	}
