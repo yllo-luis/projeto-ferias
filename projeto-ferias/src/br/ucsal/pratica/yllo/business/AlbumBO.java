@@ -10,26 +10,19 @@ import javax.media.Player;
 import javax.media.PlugInManager;
 import javax.media.format.AudioFormat;
 
-import br.ucsal.pratica.yllo.Exception.MusicaNaoEncontradaException;
+import br.ucsal.pratica.yllo.Exception.MusicaException;
 import br.ucsal.pratica.yllo.domain.Album;
 import br.ucsal.pratica.yllo.domain.Musica;
 import br.ucsal.pratica.yllo.persistence.AlbumDAO;
 
 public class AlbumBO {
 	
-	public static void cadastrarAlbum(String nome, String caminhoMusica, String nomeAlbum, Integer anoLancamento, String nomeGravadora, Musica musica) { 
-		Album album = new Album(nome,caminhoMusica,nomeAlbum, anoLancamento,nomeGravadora);  
+	public static void cadastrarAlbum(String nomeAlbum, Integer anoLancamento, String nomeGravadora) { 
+		Album album = new Album(nomeAlbum,anoLancamento,nomeGravadora);  
+		AlbumDAO.adicionarAlbum(album);
 	}
 	
-	public static void adicionarMusicas() { 
-		/*
-		 * TODO metodo para automatizar cadastros de musicas em um album... Talvez o JLayer seja util aqui..
-		 * Preciso descobrir um modo de ler dados de uma arquivo de musica coisas como artistas, duração essas coisas...
-		 */
-//		album.addMusicas(musica);
-	}
-	
-	public static void removerAlbum(Integer cod) throws MusicaNaoEncontradaException { 
+	public static void removerAlbum(Integer cod) throws MusicaException { 
 		AlbumDAO.removerAlbum(cod);
 	}
 	
@@ -61,7 +54,7 @@ public class AlbumBO {
 	}
 	
 	public static void atualizarNomeAlbum(String nome, Album album) { 
-		album.setNome(nome);
+		album.setNomeAlbum(nome);
 	}
 	
 	public static void atualizarAnoLancamentoAlbum(Integer ano, Album album) { 

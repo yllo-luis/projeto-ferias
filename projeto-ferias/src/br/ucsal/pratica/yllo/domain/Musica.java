@@ -18,6 +18,7 @@ public class Musica {
 		cod++;
 		this.nome = nome;
 		this.caminhoMusica = caminhoMusica;
+		this.genero = GeneroENUM.GENERO_DESCONHECIDO;
 		musica = new File(caminhoMusica);
 	}
 	
@@ -60,7 +61,7 @@ public class Musica {
 	public void addCompositor(String compositor) { 
 		this.compositores.add(compositor);
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Musica [nome=" + nome + ", artista=" + artista + ", genero=" + genero + ", compositores=" + compositores

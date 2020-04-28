@@ -1,7 +1,9 @@
 package br.ucsal.pratica.yllo.persistence;
 
 import java.util.Map;
-import br.ucsal.pratica.yllo.domain.*;
+
+import br.ucsal.pratica.yllo.Exception.MusicaException;
+import br.ucsal.pratica.yllo.domain.Musica;
 import java.util.HashMap;
 
 public class MusicaDAO {
@@ -11,8 +13,11 @@ public class MusicaDAO {
 		musicas.put(Musica.getCod(), musica);
 	}
 	
-	public static void removerMusica(Integer cod) { 
+	public static void removerMusica(Integer cod) throws MusicaException { 
 		musicas.remove(cod);
+		if(musicas.remove(cod).equals(null)) { 
+			throw new MusicaException("Musica não encontrada");
+		}
 	}
 	
 	public static Map<Integer,Musica> retornarMusicas() { 
