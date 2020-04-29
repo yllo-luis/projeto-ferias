@@ -25,6 +25,9 @@ import java.time.*;
 
 public class MusicaBO {	
 	
+	/*
+	 * Reescrever metodo... 
+	 */
 	public static void tocarMusica(Integer codigo) {
 		Format input1 = new AudioFormat(AudioFormat.MPEGLAYER3);
 		Format input2 = new AudioFormat(AudioFormat.MPEG);
@@ -37,7 +40,7 @@ public class MusicaBO {
 		);
 		for (Musica musicas : MusicaDAO.retornarMusicas().values()) {
 			if (musicas.getCod().equals(codigo)) {
-				File arquivoMusica = obterCaminhoMusica(musicas);
+				File arquivoMusica = new File(musicas.getMusica());
 				System.out.println(musicas.getNome());
 				try {
 					URL url = new URL("file:///" + arquivoMusica.getCanonicalPath());
@@ -61,7 +64,7 @@ public class MusicaBO {
 			List<Path> musicas = paths.filter(F -> F.toString().endsWith(".mp3")).collect(Collectors.toList());
 			for (Path path : musicas) {
 				codigo++;
-				adicionarMusica(path.toString(),path.toAbsolutePath().toString(),codigo);	
+				adicionarMusica(path.toString(), path.toAbsolutePath().toString(), codigo);
 			}
 		} catch(IOException e) { 
 			System.out.println(e);
@@ -71,6 +74,12 @@ public class MusicaBO {
 	public static void listarMusicas() { 
 		for (Musica musicas : MusicaDAO.retornarMusicas().values()) {
 			System.out.println(musicas);
+			try { 
+				Thread.sleep(2000);
+			} catch(InterruptedException e) { 
+				System.out.println("Algo errado aconteceu... a thread foi interrompida abruptamente" + e.getMessage());
+				System.out.println("Causa: " + e.getCause());
+			}
 		}
 	}
 	
@@ -86,7 +95,7 @@ public class MusicaBO {
 		musica.setGenero(genero);
 	}
 	
-	static File obterCaminhoMusica(Musica musica) {
+	static String obterCaminhoMusica(Musica musica) {
 		return musica.getMusica();
 	}
 	

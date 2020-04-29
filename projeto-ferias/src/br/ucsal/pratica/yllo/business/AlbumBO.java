@@ -37,7 +37,7 @@ public class AlbumBO {
 			PlugInManager.CODEC
 		);
 		for (Musica musicas : album.getMusicas()) {
-			File arquivoMusica = MusicaBO.obterCaminhoMusica(musicas);
+			File arquivoMusica = new File(musicas.getMusica());
 				try {
 					URL url = new URL("file:///" + arquivoMusica.getCanonicalPath());
 					System.out.println(url.getFile());

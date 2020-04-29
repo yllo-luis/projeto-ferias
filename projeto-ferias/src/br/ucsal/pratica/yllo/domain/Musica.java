@@ -1,6 +1,5 @@
 package br.ucsal.pratica.yllo.domain;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,6 @@ public class Musica {
 	private GeneroENUM genero;
 	private List<String> compositores = new ArrayList<>();
 	private String caminhoMusica;
-	File musica;
 	
 	public Musica(String nome, String caminhoMusica, Integer cod) {
 		super(); 
@@ -19,15 +17,15 @@ public class Musica {
 		this.caminhoMusica = caminhoMusica;
 		this.genero = GeneroENUM.GENERO_DESCONHECIDO;
 		this.codigo = cod;
-		musica = new File(caminhoMusica);
+		this.caminhoMusica = caminhoMusica;
 	}
 	
 	public Integer getCod() {
 		return codigo;
 	}
 	
-	public File getMusica() {
-		return musica;
+	public String getMusica() {
+		return caminhoMusica;
 	}
 
 	public String getNome() {
@@ -64,9 +62,11 @@ public class Musica {
 
 	@Override
 	public String toString() {
-		return "Musica [nome=" + nome + ", artista=" + artista + ", genero=" + genero + ", compositores=" + compositores
-				+ ", caminhoMusica=" + caminhoMusica + ", musica=" + musica + "]" + ", codigo =" + codigo;
+		return "Código: " + codigo + "\n" + "Nome: " + nome + "\n" + "Artista: " + artista;
+		
 	}
+
+	
 	
 	
 
