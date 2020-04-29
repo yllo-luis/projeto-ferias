@@ -1,32 +1,31 @@
 package br.ucsal.pratica.yllo.domain;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Musica {
-	private static Integer cod = 0;
+	private Integer codigo;
 	private String nome;
 	private String artista;
-	private String genero;
+	private GeneroENUM genero;
 	private List<String> compositores = new ArrayList<>();
 	private String caminhoMusica;
-	File musica;
 	
-	public Musica(String nome, String caminhoMusica) {
-		super();
-		cod++;
+	public Musica(String nome, String caminhoMusica, Integer cod) {
+		super(); 
 		this.nome = nome;
 		this.caminhoMusica = caminhoMusica;
-		musica = new File(caminhoMusica);
+		this.genero = GeneroENUM.GENERO_DESCONHECIDO;
+		this.codigo = cod;
+		this.caminhoMusica = caminhoMusica;
 	}
 	
-	public static Integer getCod() {
-		return cod;
+	public Integer getCod() {
+		return codigo;
 	}
 	
-	public File getMusica() {
-		return musica;
+	public String getMusica() {
+		return caminhoMusica;
 	}
 
 	public String getNome() {
@@ -45,11 +44,11 @@ public class Musica {
 		this.artista = artista;
 	}
 	
-	public String getGenero() {
+	public GeneroENUM getGenero() {
 		return genero;
 	}
 	
-	public void setGenero(String genero) {
+	public void setGenero(GeneroENUM genero) {
 		this.genero = genero;
 	}
 	
@@ -63,9 +62,13 @@ public class Musica {
 
 	@Override
 	public String toString() {
-		return "Musica [nome=" + nome + ", artista=" + artista + ", genero=" + genero + ", compositores=" + compositores
-				+ ", caminhoMusica=" + caminhoMusica + ", musica=" + musica + "]";
+		return "Código: " + codigo + "\n" + "Nome: " + nome + "\n" + "Artista: " + artista;
+		
 	}
+
+	
+	
+	
 
 	
 	

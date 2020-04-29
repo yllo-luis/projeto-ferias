@@ -3,7 +3,7 @@ package br.ucsal.pratica.yllo.persistence;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.ucsal.pratica.yllo.Exception.MusicaNaoEncontradaException;
+import br.ucsal.pratica.yllo.Exception.MusicaException;
 import br.ucsal.pratica.yllo.domain.Album;
 
 public class AlbumDAO {
@@ -13,9 +13,9 @@ public class AlbumDAO {
 		albuns.put(Album.getCodAlbum(), album);
 	}
 	
-	public static void removerAlbum(Integer codAlbum) throws MusicaNaoEncontradaException { 
+	public static void removerAlbum(Integer codAlbum) throws MusicaException { 
 		if(albuns.remove(codAlbum).equals(null)) { 
-			throw new MusicaNaoEncontradaException("Album n√£o encontrado!");
+			throw new MusicaException("Album n„o encontrado!");
 		}
 	}
 	

@@ -3,16 +3,15 @@ package br.ucsal.pratica.yllo.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Album extends Musica {
+public class Album {
 	private static Integer codAlbum = 0;
 	private String nomeAlbum;
 	private Integer anoLancamento;
 	private String nomeGravadora;
 	private List<Musica> musicas = new ArrayList<>();
 	
-	public Album(String nome, String caminhoMusica, String nomeAlbum, Integer anoLancamento, String nomeGravadora) {
-		super(nome, caminhoMusica);
-		codAlbum++;
+	public Album(String nomeAlbum, Integer anoLancamento, String nomeGravadora) {
+		super();
 		this.nomeAlbum = nomeAlbum;
 		this.anoLancamento = anoLancamento;
 		this.nomeGravadora = nomeGravadora;
