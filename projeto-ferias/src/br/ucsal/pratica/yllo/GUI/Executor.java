@@ -12,22 +12,24 @@ public class Executor {
 	static final Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
 		/*
-		 * Entry point para execu√ß√£o da interface grafica
+		 * Entry point para defini√ß√£o de path de musicas
 		 */
+		definirpath();
+	}
+
+	public static void definirpath() {
+		System.out.println("Por favor defina a pasta de suas musicas");
+		String path = sc.nextLine();
+		MusicaBO.setPath(path);
 		MusicaBO.acharMusica();
-		
 		entrypointMenu();
-		/*
-		 * TODO consertar bugs em playbay de musica...
-		 * Por algum motivo certas musicas se recusam a tocar(WTF?!)
-		 */
 	}
 
 	public static void entrypointMenu() {
 		Integer mode = 0;
 		do { 
 			System.out.println("------CLI Samantha Java Music Player-------");
-			System.out.println("1. Listar Musicas disponÌveis");
+			System.out.println("1. Listar Musicas dispon√≥veis");
 			System.out.println("2. Tocar Musica");
 			System.out.println("3. Atualizar Artista da Musica");
 			System.out.println("4. Atualizar Genero Da Musica");
@@ -35,7 +37,7 @@ public class Executor {
 			System.out.println("6. Tocar Album de Musicas");
 			System.out.println("7. Fechar Player");
 			System.out.println();
-			System.out.print("OpÁ„o: ");
+			System.out.print("Op√ß√£o: ");
 			mode = sc.nextInt();
 			switch (mode) {
 			case 1:
@@ -60,7 +62,7 @@ public class Executor {
 				System.exit(mode);
 				break;
 			default:
-				System.out.println("OpÁ„o invalida");
+				System.out.println("Op√ß√£o invalida");
 				break;
 			}
 		} while(mode != 7);
@@ -68,12 +70,12 @@ public class Executor {
 	}
 
 	private static void listarMusicas() {
-		System.out.println("-----Musicas DisponÌveis-----");
+		System.out.println("-----Musicas Dispon√≥veis-----");
 		MusicaBO.listarMusicas();
 	}
 
 	private static void tocarMusica() {
-		System.out.println("Por favor digite o cÛdigo da m˙sica desejada: ");
+		System.out.println("Por favor digite o c√≥digo da m√∫sica desejada: ");
 		Integer codigo = sc.nextInt();
 		MusicaBO.tocarMusica(codigo);
 	}

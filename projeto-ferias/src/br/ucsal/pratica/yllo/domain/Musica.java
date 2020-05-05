@@ -6,7 +6,7 @@ import java.util.List;
 public class Musica {
 	private Integer codigo;
 	private String nome;
-	private String artista;
+	private String artista = "Artista Desconhecido";
 	private GeneroENUM genero;
 	private List<String> compositores = new ArrayList<>();
 	private String caminhoMusica;
@@ -62,7 +62,7 @@ public class Musica {
 
 	@Override
 	public String toString() {
-		return "Código: " + codigo + "\n" + "Nome: " + nome + "\n" + "Artista: " + artista;
+		return "CÃ³digo: " + codigo + "\n" + "Nome: " + nome + "\n" + "Artista: " + artista;
 		
 	}
 
