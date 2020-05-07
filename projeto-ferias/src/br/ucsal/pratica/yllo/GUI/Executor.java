@@ -74,7 +74,7 @@ public class Executor {
 				System.out.println("Opção invalida");
 				break;
 			}
-		} while(mode != 7);
+		} while(mode != 9);
 		
 	}
 
