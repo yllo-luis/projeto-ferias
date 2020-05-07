@@ -59,6 +59,4 @@ public class Album {
 				+ ", toString()=" + super.toString() + "]";
 	}
 	
-	
-	
 }

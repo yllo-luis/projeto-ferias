@@ -62,7 +62,7 @@ public class Musica {
 
 	@Override
 	public String toString() {
-		return "Código: " + codigo + "\n" + "Nome: " + nome + "\n" + "Artista: " + artista;
+		return "Código: " + codigo + "\n" + "Nome: " + nome + "\n" + "Artista: " + artista + "\n" + "Genero: " + genero.toString().toLowerCase();
 		
 	}
 

@@ -13,10 +13,11 @@ public class MusicaDAO {
 		musicas.put(musica.getCod(), musica);
 	}
 	
-	public static void removerMusica(Integer codigo) throws MusicaException { 
-		musicas.remove(codigo);
-		if(musicas.remove(codigo).equals(null)) { 
-			throw new MusicaException("Musica não encontrada");
+	public static void removerMusica(Integer codigo) { 
+		try { 
+			musicas.remove(codigo);
+		} catch(NullPointerException e) { 
+			System.out.println(e.getStackTrace());
 		}
 	}
 	

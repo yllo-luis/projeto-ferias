@@ -26,19 +26,15 @@ public class MusicaBO {
 	
 	private static String path;
 	
-	public static void tocarMusica(Integer codigo) { 
-		for (Musica musicas : MusicaDAO.retornarMusicas().values()) {
-			if(musicas.getCod().equals(codigo)) { 
-				File arquivoMusica = new File(musicas.getMusica());
-				try { 
-					InputStream musica = new FileInputStream(arquivoMusica);
-					Player player = new Player(musica);
-					player.play();
-					System.out.println(player.getPosition());
-				} catch(IOException | JavaLayerException e) { 
-					System.out.println("Falha em playback: " + e.getMessage());
-				}
-			}
+	public static void tocarMusica(Integer codigo) {
+		try {
+			File arquivoMusica = new File(buscaMusica(codigo).getMusica());
+			InputStream musica = new FileInputStream(arquivoMusica);
+			Player player = new Player(musica);
+			player.play();
+			System.out.println(player.getPosition());
+		} catch (IOException | JavaLayerException | MusicaException e) {
+			System.out.println("Falha em playback: " + e.getMessage());
 		}
 	}
 	
@@ -56,7 +52,7 @@ public class MusicaBO {
 				adicionarMusica(path.toString(), path.toAbsolutePath().toString(), codigo);
 			}
 		} catch(IOException e) { 
-			System.out.println("Falha ao capturar músicas" + e.getMessage());
+			System.out.println("Falha ao capturar músicas " + e.getMessage());
 		}
 	}
 	
@@ -76,20 +72,26 @@ public class MusicaBO {
 		MusicaDAO.removerMusica(codigo);
 	}
 	
-	public static void adicionarArtista(Musica musica, String artista) { 
-		musica.setArtista(artista);
+	public static void adicionarArtista(Integer codigo, String artista) { 
+		try {
+			Musica musica = buscaMusica(codigo);
+			musica.setArtista(artista);
+		} catch (MusicaException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
-	public static void atualizarGenero(Musica musica, GeneroENUM genero) { 
-		musica.setGenero(genero);
+	public static void atualizarGenero(Integer codigo ,String genero) { 
+		try {
+			Musica musica = buscaMusica(codigo);
+			musica.setGenero(GeneroENUM.valueOf(genero.toUpperCase()));
+		} catch (MusicaException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public static void setPath(String path) {
 		MusicaBO.path = path;
-	}
-	
-	static String obterCaminhoMusica(Musica musica) {
-		return musica.getMusica();
 	}
 	
 	private static void adicionarMusica(String nome, String caminhoMusica, Integer codigo) { 
@@ -97,6 +99,12 @@ public class MusicaBO {
 		MusicaDAO.adicionarMusica(musica);
 	}
 	
-	
-	
+	private static Musica buscaMusica(Integer codigo) throws MusicaException { 
+		for (Musica musicas : MusicaDAO.retornarMusicas().values()) {
+			if(musicas.getCod().equals(codigo)) { 
+				return musicas;
+			}
+		}
+		throw new MusicaException("Musica não encontrada");
+	}
 }

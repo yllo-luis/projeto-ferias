@@ -5,6 +5,7 @@
 
 package br.ucsal.pratica.yllo.GUI;
 
+import br.ucsal.pratica.yllo.Exception.MusicaException;
 import br.ucsal.pratica.yllo.business.MusicaBO;
 import java.util.Scanner;
 
@@ -31,11 +32,13 @@ public class Executor {
 			System.out.println("------CLI Samantha Java Music Player-------");
 			System.out.println("1. Listar Musicas disponóveis");
 			System.out.println("2. Tocar Musica");
-			System.out.println("3. Atualizar Artista da Musica");
-			System.out.println("4. Atualizar Genero Da Musica");
-			System.out.println("5. Criar Album de Musicas");
-			System.out.println("6. Tocar Album de Musicas");
-			System.out.println("7. Fechar Player");
+			System.out.println("3. Excluir Musica");
+			System.out.println("4. Atualizar Artista da Musica");
+			System.out.println("5. Atualizar Genero Da Musica");
+			System.out.println("6. Criar Album de Musicas");
+			System.out.println("7. Tocar Album de Musicas");
+			System.out.println("8. Mudar pasta de Musicas");
+			System.out.println("9. Fechar Player");
 			System.out.println();
 			System.out.print("Opção: ");
 			mode = sc.nextInt();
@@ -46,19 +49,25 @@ public class Executor {
 			case 2:
 				tocarMusica();
 				break;
-			case 3:
-				atualizarArtista();
+			case 3: 
+				exluirMusica();
 				break;
 			case 4:
-				atualizarGenero();
+				atualizarArtista();
 				break;
 			case 5:
-				criarAlbum();
+				atualizarGenero();
 				break;
 			case 6:
-				tocarAlbum();
+				criarAlbum();
 				break;
 			case 7:
+				tocarAlbum();
+				break;
+			case 8:
+				definirpath();
+				break;
+			case 9: 
 				System.exit(mode);
 				break;
 			default:
@@ -67,6 +76,16 @@ public class Executor {
 			}
 		} while(mode != 7);
 		
+	}
+
+	private static void exluirMusica() {
+		System.out.println("Digite o código da música a ser excluida");
+		Integer codigo = sc.nextInt();
+		try {
+			MusicaBO.removerMusica(codigo);
+		} catch (MusicaException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static void listarMusicas() {
@@ -81,13 +100,21 @@ public class Executor {
 	}
 
 	private static void atualizarGenero() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Por favor digite o código da musica desejada: ");
+		Integer codigo = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Digite o genero da musica");
+		String genero = sc.nextLine();
+		MusicaBO.atualizarGenero(codigo, genero);
 	}
 
 	private static void atualizarArtista() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Digite o código da música a ser atualizada");
+		Integer codigo = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Digite o nome do artista");
+		String artista = sc.nextLine();
+		MusicaBO.adicionarArtista(codigo, artista);
 	}
 
 	private static void tocarAlbum() {
