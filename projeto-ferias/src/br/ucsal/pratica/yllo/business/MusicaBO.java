@@ -68,7 +68,7 @@ public class MusicaBO {
 		}
 	}
 	
-	public static void removerMusica(Integer codigo) throws MusicaException { 
+	public static void removerMusica(Integer codigo) { 
 		MusicaDAO.removerMusica(codigo);
 	}
 	

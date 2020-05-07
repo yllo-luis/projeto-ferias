@@ -81,11 +81,7 @@ public class Executor {
 	private static void exluirMusica() {
 		System.out.println("Digite o código da música a ser excluida");
 		Integer codigo = sc.nextInt();
-		try {
-			MusicaBO.removerMusica(codigo);
-		} catch (MusicaException e) {
-			System.out.println(e.getMessage());
-		}
+		MusicaBO.removerMusica(codigo);
 	}
 
 	private static void listarMusicas() {
