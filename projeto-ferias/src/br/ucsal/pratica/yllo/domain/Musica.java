@@ -1,14 +1,20 @@
 package br.ucsal.pratica.yllo.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Musica {
+public class Musica implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2613352306071355322L;
+	
 	private Integer codigo;
 	private String nome;
 	private String artista = "Artista Desconhecido";
 	private GeneroENUM genero;
-	private List<String> compositores = new ArrayList<>();
 	private String caminhoMusica;
 	
 	public Musica(String nome, String caminhoMusica, Integer cod) {
@@ -52,25 +58,9 @@ public class Musica {
 		this.genero = genero;
 	}
 	
-	public List<String> getCompositores() {
-		return compositores;
-	}
-	
-	public void addCompositor(String compositor) { 
-		this.compositores.add(compositor);
-	}
-
 	@Override
 	public String toString() {
 		return "Código: " + codigo + "\n" + "Nome: " + nome + "\n" + "Artista: " + artista + "\n" + "Genero: " + genero.toString().toLowerCase();
 		
 	}
-
-	
-	
-	
-
-	
-	
-	
 }

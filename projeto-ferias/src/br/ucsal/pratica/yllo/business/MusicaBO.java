@@ -32,7 +32,6 @@ public class MusicaBO {
 			InputStream musica = new FileInputStream(arquivoMusica);
 			Player player = new Player(musica);
 			player.play();
-			System.out.println(player.getPosition());
 		} catch (IOException | JavaLayerException | MusicaException e) {
 			System.out.println("Falha em playback: " + e.getMessage());
 		}
@@ -53,18 +52,6 @@ public class MusicaBO {
 			}
 		} catch(IOException e) { 
 			System.out.println("Falha ao capturar músicas " + e.getMessage());
-		}
-	}
-	
-	public static void listarMusicas() { 
-		for (Musica musicas : MusicaDAO.retornarMusicas().values()) {
-			System.out.println(musicas);
-			try { 
-				Thread.sleep(2000);
-			} catch(InterruptedException e) { 
-				System.out.println("Algo errado aconteceu... a thread foi interrompida abruptamente" + e.getMessage());
-				System.out.println("Causa: " + e.getCause());
-			}
 		}
 	}
 	
@@ -99,7 +86,7 @@ public class MusicaBO {
 		MusicaDAO.adicionarMusica(musica);
 	}
 	
-	private static Musica buscaMusica(Integer codigo) throws MusicaException { 
+	static Musica buscaMusica(Integer codigo) throws MusicaException { 
 		for (Musica musicas : MusicaDAO.retornarMusicas().values()) {
 			if(musicas.getCod().equals(codigo)) { 
 				return musicas;

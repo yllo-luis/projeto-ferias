@@ -9,6 +9,9 @@ import java.util.HashMap;
 public class MusicaDAO {
 	private static Map<Integer,Musica> musicas = new HashMap<Integer,Musica>();
 	
+	/*
+	 * TODO Implementar pesistencia de arquivo.
+	 */
 	public static void adicionarMusica(Musica musica) { 
 		musicas.put(musica.getCod(), musica);
 	}
