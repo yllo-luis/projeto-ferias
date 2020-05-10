@@ -1,8 +1,7 @@
 package br.ucsal.pratica.yllo.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
 
 public class Musica implements Serializable {
 	
@@ -16,14 +15,15 @@ public class Musica implements Serializable {
 	private String artista = "Artista Desconhecido";
 	private GeneroENUM genero;
 	private String caminhoMusica;
+	private File arquivoMusica;
 	
 	public Musica(String nome, String caminhoMusica, Integer cod) {
 		super(); 
-		this.nome = nome;
-		this.caminhoMusica = caminhoMusica;
 		this.genero = GeneroENUM.GENERO_DESCONHECIDO;
 		this.codigo = cod;
 		this.caminhoMusica = caminhoMusica;
+		arquivoMusica = new File(caminhoMusica);
+		this.nome = arquivoMusica.getName();
 	}
 	
 	public Integer getCod() {

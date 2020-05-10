@@ -20,77 +20,91 @@ public class Executor {
 		/*
 		 * Entry point para definição de path de musicas
 		 */
-		definirpath();
-	}
-
-	public static void definirpath() {
-		System.out.println("Por favor defina a pasta de suas musicas");
-		String path = sc.nextLine();
-		MusicaBO.setPath(path);
-		MusicaBO.acharMusica();
+		MusicaBO.restaurarConfiguracoes();
 		entrypointMenu();
 	}
-
+	
+	
 	public static void entrypointMenu() {
 		Integer mode = 0;
-		do { 
+		do {
+			System.out.println("Diretorio do projeto: " + System.getProperty("user.dir"));
 			System.out.println("------CLI Samantha Java Music Player-------");
-			System.out.println("1. Listar Musicas disponíveis");
-			System.out.println("2. Tocar Musica");
-			System.out.println("3. Excluir Musica");
-			System.out.println("4. Atualizar Artista da Musica");
-			System.out.println("5. Atualizar Genero Da Musica");
-			System.out.println("6. Criar playlist de Musicas");
-			System.out.println("7. Adicionar Musicas a uma PlayList");
-			System.out.println("8. Tocar playlist de Musicas");
-			System.out.println("9. Listar Playlist's");
-			System.out.println("10. Mudar pasta de Musicas");
-			System.out.println("11. Fechar Player");
+			System.out.println("1. Salvar Musicas");
+			System.out.println("2. Salvar Playlist");
+			System.out.println("3. Restaurar Playlist");
+			System.out.println("4. Listar Musicas disponíveis");
+			System.out.println("5. Tocar Musica");
+			System.out.println("6. Excluir Musica");
+			System.out.println("7. Atualizar Artista da Musica");
+			System.out.println("8. Atualizar Genero Da Musica");
+			System.out.println("9. Criar playlist de Musicas");
+			System.out.println("10. Adicionar Musicas a uma PlayList");
+			System.out.println("11. Tocar playlist de Musicas");
+			System.out.println("12. Listar Playlist's");
+			System.out.println("13. Mudar pasta de Musicas");
+			System.out.println("14. Fechar Player");
 			System.out.println();
 			System.out.print("Opção: ");
 			mode = sc.nextInt();
 			switch (mode) {
 			case 1:
-				listarMusicas();
+				MusicaBO.salvarConfiguracoes();
 				break;
 			case 2:
-				tocarMusica();
+				PlayListBO.salvarPlayLists();
 				break;
-			case 3: 
-				exluirMusica();
+			case 3:
+				PlayListBO.restaurarPlayLists();
 				break;
 			case 4:
-				atualizarArtista();
+				listarMusicas();
 				break;
 			case 5:
-				atualizarGenero();
+				tocarMusica();
 				break;
-			case 6:
-				criarPlaylist();
+			case 6: 
+				exluirMusica();
 				break;
 			case 7:
-				addMusicasPlayList();
+				atualizarArtista();
 				break;
 			case 8:
-				tocarPlaylist();
+				atualizarGenero();
 				break;
 			case 9:
-				listarPlayList();
+				criarPlaylist();
 				break;
 			case 10:
+				addMusicasPlayList();
+				break;
+			case 11:
+				tocarPlaylist();
+				break;
+			case 12:
+				listarPlayList();
+				break;
+			case 13:
 				definirpath();
 				break;
-			case 11: 
+			case 14: 
 				System.exit(mode);
 				break;
 			default:
 				System.out.println("Opção invalida");
 				break;
 			}
-		} while(mode != 11);
+		} while(mode != 14);
 		
 	}
-
+	
+	public static void definirpath() {
+		System.out.println("Por favor defina a pasta de suas musicas");
+		String path = sc.nextLine();
+		MusicaBO.setPath(path);
+		MusicaBO.acharMusica();
+	}
+	
 	private static void exluirMusica() {
 		System.out.println("Digite o código da música a ser excluida");
 		Integer codigo = sc.nextInt();

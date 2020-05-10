@@ -26,6 +26,14 @@ public class MusicaBO {
 	
 	private static String path;
 	
+	public static void salvarConfiguracoes() { 
+		MusicaDAO.salvarArquivo();
+	}
+	
+	public static void restaurarConfiguracoes() { 
+		MusicaDAO.restaurarArquivo();
+	}
+	
 	public static void tocarMusica(Integer codigo) {
 		try {
 			File arquivoMusica = new File(buscaMusica(codigo).getMusica());

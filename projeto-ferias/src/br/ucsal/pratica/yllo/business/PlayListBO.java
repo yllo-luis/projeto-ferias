@@ -54,5 +54,13 @@ public class PlayListBO {
 		}
 		throw new PlayListException("PlayList não encontrada");
 	}
+
+	public static void salvarPlayLists() {
+		PlayListDAO.salvarArquivo();
+	}
+	
+	public static void restaurarPlayLists() { 
+		PlayListDAO.restaurarArquivo();
+	}
 	
 }
