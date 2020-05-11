@@ -6,6 +6,7 @@ import br.ucsal.pratica.yllo.domain.*;
 import br.ucsal.pratica.yllo.persistence.PlayListDAO;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.File;
 
 import javazoom.jl.decoder.JavaLayerException;
@@ -46,6 +47,14 @@ public class PlayListBO {
 		PlayListDAO.removerPlayList(codPlayList);
 	}
 	
+	public static void salvarPlayLists() {
+		PlayListDAO.salvarArquivo();
+	}
+	
+	public static void restaurarPlayLists() throws IOException { 
+		PlayListDAO.restaurarArquivo();
+	}
+
 	private static PlayList procurarPlaylist(Integer codPlaylist) throws PlayListException { 
 		for(PlayList playList : PlayListDAO.retornarPlayList().values()) { 
 			if(playList.getCodPlaylist().equals(codPlaylist)) { 
@@ -53,14 +62,6 @@ public class PlayListBO {
 			}
 		}
 		throw new PlayListException("PlayList não encontrada");
-	}
-
-	public static void salvarPlayLists() {
-		PlayListDAO.salvarArquivo();
-	}
-	
-	public static void restaurarPlayLists() { 
-		PlayListDAO.restaurarArquivo();
 	}
 	
 }

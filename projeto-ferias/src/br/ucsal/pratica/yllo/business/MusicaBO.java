@@ -30,7 +30,7 @@ public class MusicaBO {
 		MusicaDAO.salvarArquivo();
 	}
 	
-	public static void restaurarConfiguracoes() { 
+	public static void restaurarConfiguracoes() throws IOException { 
 		MusicaDAO.restaurarArquivo();
 	}
 	

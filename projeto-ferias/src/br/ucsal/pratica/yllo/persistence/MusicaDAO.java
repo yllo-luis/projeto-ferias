@@ -47,7 +47,7 @@ public class MusicaDAO {
 	
 	
 	
-	public static void restaurarArquivo() { 
+	public static void restaurarArquivo() throws IOException { 
 		musicas.clear();
 		try {
 			ObjectInputStream input = new ObjectInputStream(new FileInputStream(arquivoconfig));
@@ -58,7 +58,7 @@ public class MusicaDAO {
 			input.close();
 		} catch(EOFException e) { 
 			System.out.println("Leitura sucedida");
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		

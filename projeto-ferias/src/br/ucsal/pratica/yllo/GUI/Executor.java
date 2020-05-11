@@ -12,6 +12,7 @@ import br.ucsal.pratica.yllo.domain.PlayList;
 import br.ucsal.pratica.yllo.persistence.MusicaDAO;
 import br.ucsal.pratica.yllo.persistence.PlayListDAO;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Executor {
@@ -20,7 +21,11 @@ public class Executor {
 		/*
 		 * Entry point para definição de path de musicas
 		 */
-		MusicaBO.restaurarConfiguracoes();
+		try {
+			MusicaBO.restaurarConfiguracoes();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 		entrypointMenu();
 	}
 	
@@ -42,8 +47,9 @@ public class Executor {
 			System.out.println("10. Adicionar Musicas a uma PlayList");
 			System.out.println("11. Tocar playlist de Musicas");
 			System.out.println("12. Listar Playlist's");
-			System.out.println("13. Mudar pasta de Musicas");
-			System.out.println("14. Fechar Player");
+			System.out.println("13. Excluir Playlist");
+			System.out.println("14. Detectar Musicas");
+			System.out.println("15. Fechar Player");
 			System.out.println();
 			System.out.print("Opção: ");
 			mode = sc.nextInt();
@@ -55,7 +61,7 @@ public class Executor {
 				PlayListBO.salvarPlayLists();
 				break;
 			case 3:
-				PlayListBO.restaurarPlayLists();
+				restaurarPlayLists();
 				break;
 			case 4:
 				listarMusicas();
@@ -85,20 +91,24 @@ public class Executor {
 				listarPlayList();
 				break;
 			case 13:
-				definirpath();
+				exluirPlayList();
 				break;
-			case 14: 
+			case 14:
+				detectarMusicas();
+				break;
+			case 15: 
 				System.exit(mode);
 				break;
 			default:
 				System.out.println("Opção invalida");
 				break;
 			}
-		} while(mode != 14);
+		} while(mode != 15);
 		
 	}
 	
-	public static void definirpath() {
+	private static void detectarMusicas() {
+		sc.nextLine();
 		System.out.println("Por favor defina a pasta de suas musicas");
 		String path = sc.nextLine();
 		MusicaBO.setPath(path);
@@ -157,6 +167,13 @@ public class Executor {
 		PlayListBO.adicionarMusica(cod, codPlayList);
 	}
 
+	private static void exluirPlayList() {
+		System.out.println("Por favor digite o código da playlist a ser ecluida");
+		Integer cod = sc.nextInt();
+		PlayListBO.removerPlayList(cod);
+	}
+
+
 	private static void tocarPlaylist() {
 		System.out.println("Digite o código da playlist a ser tocada");
 		Integer cod = sc.nextInt();
@@ -183,6 +200,15 @@ public class Executor {
 				System.out.println("Causa: " + e.getCause());
 			}
 		}
+	}
+
+
+	private static void restaurarPlayLists() {
+		try {
+			PlayListBO.restaurarPlayLists();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}		
 	}
 
 }
