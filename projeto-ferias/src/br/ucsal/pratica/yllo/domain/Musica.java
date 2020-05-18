@@ -61,6 +61,5 @@ public class Musica implements Serializable {
 	@Override
 	public String toString() {
 		return "Código: " + codigo + "\n" + "Nome: " + nome + "\n" + "Artista: " + artista + "\n" + "Genero: " + genero.toString().toLowerCase();
-		
 	}
 }

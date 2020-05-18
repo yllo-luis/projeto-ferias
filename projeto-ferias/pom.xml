@@ -11,6 +11,14 @@
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>0.0.4</version>
+				<configuration>
+					<mainClass>br.ucsal.pratica.yllo.GUI.Executor</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.2-beta-5</version>
 				<configuration>
@@ -38,6 +46,11 @@
 			<groupId>javazoom</groupId>
 			<artifactId>jlayer</artifactId>
 			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>14</version>
 		</dependency>
 	</dependencies>
 </project>
