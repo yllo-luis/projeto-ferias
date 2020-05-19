@@ -11,13 +11,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class PlayListDAO {
 	
-	private static Map<Integer,PlayList> musicas = new HashMap<Integer, PlayList>(); 
-	private static File arquivoconfig = new File(System.getProperty("user.dir") + "playlists.bin");
+	private static Map<Integer,PlayList> musicas = new HashMap<Integer, PlayList>();
 	
+	private final static Path diretorioRelativo = Paths.get(System.getProperty("user.dir"));
+	private final static String arquivo = diretorioRelativo.toString() + File.separatorChar + "playlist.bin";
+	private final static Path caminhoFinal = diretorioRelativo.resolve(arquivo);
+	private final static File arquivoconfig = new File(caminhoFinal.toAbsolutePath().toString());
 	
 	public static void adicionarPlaylist(PlayList playList) { 
 		musicas.put(playList.getCodPlaylist(), playList);

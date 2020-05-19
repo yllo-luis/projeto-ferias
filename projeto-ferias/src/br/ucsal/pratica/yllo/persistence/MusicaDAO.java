@@ -11,10 +11,16 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class MusicaDAO {
 	private static Map<Integer,Musica> musicas = new HashMap<Integer,Musica>();
-	private static File arquivoconfig = new File(System.getProperty("user.dir") + "musicas.bin");
+	
+	private final static Path diretorioRelativo = Paths.get(System.getProperty("user.dir"));
+	private final static String arquivo = diretorioRelativo.toString() + File.separatorChar + "musica.bin";
+	private final static Path caminhoFinal = diretorioRelativo.resolve(arquivo);
+	private final static File arquivoconfig = new File(caminhoFinal.toAbsolutePath().toString());
 
 	public static void adicionarMusica(Musica musica) { 
 		musicas.put(musica.getCod(), musica);
