@@ -94,7 +94,7 @@ public class MusicaBO {
 		MusicaDAO.adicionarMusica(musica);
 	}
 	
-	static Musica buscaMusica(Integer codigo) throws MusicaException { 
+	static Musica buscaMusica(Integer codigo) throws MusicaException {
 		for (Musica musicas : MusicaDAO.retornarMusicas().values()) {
 			if(musicas.getCod().equals(codigo)) { 
 				return musicas;

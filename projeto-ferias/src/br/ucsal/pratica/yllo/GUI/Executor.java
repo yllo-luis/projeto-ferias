@@ -5,12 +5,16 @@
 
 package br.ucsal.pratica.yllo.GUI;
 
+import br.ucsal.pratica.yllo.Exception.UsuarioException;
 import br.ucsal.pratica.yllo.business.MusicaBO;
 import br.ucsal.pratica.yllo.business.PlayListBO;
 import br.ucsal.pratica.yllo.domain.Musica;
 import br.ucsal.pratica.yllo.domain.PlayList;
+import br.ucsal.pratica.yllo.domain.Usuario;
 import br.ucsal.pratica.yllo.persistence.MusicaDAO;
 import br.ucsal.pratica.yllo.persistence.PlayListDAO;
+import br.ucsal.pratica.yllo.persistence.UsuarioDAO;
+import br.ucsal.pratica.yllo.business.UsuarioBO;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -23,18 +27,42 @@ public class Executor {
 		 */
 		try {
 			MusicaBO.restaurarConfiguracoes();
+			UsuarioBO.restaurarUsuarios();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
-		}
-		entrypointMenu();
+		} 
+		login();
 	}
 	
 	
-	public static void entrypointMenu() {
+	public static void login() {
+		System.out.println("Digite o seu usuário");
+		String nome = sc.nextLine();
+		System.out.println("Digite sua senha");
+		String senha = sc.nextLine();
+		try { 
+			Usuario usuario = UsuarioBO.Autenticarusuario(senha, nome);
+			entrypointMenu(usuario);
+		} catch(UsuarioException e) { 
+			System.out.println(e.getMessage());
+			System.out.println("Deseja criar um usuário novo? Y ou N");
+			String op = sc.nextLine();
+			if(op.equals("Y") || op.equals("y")) { 
+				UsuarioBO.SalvarUsuario(nome, senha);
+				login();
+			} else { 
+				System.exit(0);
+			}
+		} 
+	}
+
+
+	public static void entrypointMenu(Usuario usuario) {
 		Integer mode = 0;
 		do {
 			System.out.println("Diretorio do projeto: " + System.getProperty("user.dir"));
 			System.out.println("------CLI Samantha Java Music Player-------");
+			System.out.println("Usuario: " + usuario.getNome());
 			System.out.println("1. Salvar Musicas");
 			System.out.println("2. Salvar Playlist");
 			System.out.println("3. Restaurar Playlist");
