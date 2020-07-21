@@ -17,7 +17,7 @@ public class Musica implements Serializable {
 	private String caminhoMusica;
 	private File arquivoMusica;
 	
-	public Musica(String nome, String caminhoMusica, Integer cod) {
+	public Musica(String caminhoMusica, Integer cod) {
 		super(); 
 		this.genero = GeneroENUM.GENERO_DESCONHECIDO;
 		this.codigo = cod;

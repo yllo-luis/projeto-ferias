@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compartilhamento {
-	private String usuario;
-	private String compartilhado;
+	private Usuario usuario;
+	private Usuario compartilhado;
 	private List<PlayList> playlists = new ArrayList<PlayList>();
 	private List<Musica> musicas = new ArrayList<Musica>();
 	
-	public Compartilhamento(String usuario, String compartilhado) {
+	public Compartilhamento(Usuario usuario, Usuario compartilhado) {
 		super();
 		this.usuario = usuario;
 		this.compartilhado = compartilhado;
 	}
 
-	public String getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 	
-	public void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 	
-	public String getCompartilhado() {
+	public Usuario getCompartilhado() {
 		return compartilhado;
 	}
 	
-	public void setCompartilhado(String compartilhado) {
+	public void setCompartilhado(Usuario compartilhado) {
 		this.compartilhado = compartilhado;
 	}
 	

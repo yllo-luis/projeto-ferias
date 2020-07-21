@@ -2,7 +2,6 @@ package br.ucsal.pratica.yllo.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import br.ucsal.pratica.yllo.domain.Musica;
 import com.google.common.hash.Hashing;
 
 import java.io.Serializable;

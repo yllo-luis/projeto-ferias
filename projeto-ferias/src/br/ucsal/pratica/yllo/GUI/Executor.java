@@ -6,17 +6,23 @@
 package br.ucsal.pratica.yllo.GUI;
 
 import br.ucsal.pratica.yllo.Exception.UsuarioException;
-import br.ucsal.pratica.yllo.business.MusicaBO;
-import br.ucsal.pratica.yllo.business.PlayListBO;
+import br.ucsal.pratica.yllo.controllers.MusicReproductionController;
+import br.ucsal.pratica.yllo.controllers.MusicSaveController;
+import br.ucsal.pratica.yllo.controllers.MusicUpdateController;
+import br.ucsal.pratica.yllo.controllers.PlayListDAOController;
+import br.ucsal.pratica.yllo.controllers.PlayListReproductionController;
+import br.ucsal.pratica.yllo.controllers.PlayListSaveController;
+import br.ucsal.pratica.yllo.controllers.UsuarioAuthController;
+import br.ucsal.pratica.yllo.controllers.UsuarioDAOController;
+import br.ucsal.pratica.yllo.controllers.CompartilhamentoController;
 import br.ucsal.pratica.yllo.domain.Musica;
 import br.ucsal.pratica.yllo.domain.PlayList;
 import br.ucsal.pratica.yllo.domain.Usuario;
 import br.ucsal.pratica.yllo.persistence.MusicaDAO;
 import br.ucsal.pratica.yllo.persistence.PlayListDAO;
-import br.ucsal.pratica.yllo.persistence.UsuarioDAO;
-import br.ucsal.pratica.yllo.business.UsuarioBO;
+import br.ucsal.pratica.yllo.controllers.LoadSettings;
+import br.ucsal.pratica.yllo.controllers.MusicDAOController;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Executor {
@@ -25,12 +31,7 @@ public class Executor {
 		/*
 		 * Entry point para definição de path de musicas
 		 */
-		try {
-			MusicaBO.restaurarConfiguracoes();
-			UsuarioBO.restaurarUsuarios();
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		} 
+		LoadSettings.loadSettings();
 		login();
 	}
 	
@@ -41,21 +42,13 @@ public class Executor {
 		System.out.println("Digite sua senha");
 		String senha = sc.nextLine();
 		try { 
-			Usuario usuario = UsuarioBO.Autenticarusuario(senha, nome);
+			Usuario usuario = UsuarioAuthController.Autenticarusuario(senha, nome);
 			entrypointMenu(usuario);
 		} catch(UsuarioException e) { 
 			System.out.println(e.getMessage());
-			System.out.println("Deseja criar um usuário novo? Y ou N");
-			String op = sc.nextLine();
-			if(op.equals("Y") || op.equals("y")) { 
-				UsuarioBO.SalvarUsuario(nome, senha);
-				login();
-			} else { 
-				System.exit(0);
-			}
-		} 
-	}
-
+		}
+	} 
+	
 
 	public static void entrypointMenu(Usuario usuario) {
 		Integer mode = 0;
@@ -65,66 +58,74 @@ public class Executor {
 			System.out.println("Usuario: " + usuario.getNome());
 			System.out.println("1. Salvar Musicas");
 			System.out.println("2. Salvar Playlist");
-			System.out.println("3. Restaurar Playlist");
-			System.out.println("4. Listar Musicas disponíveis");
-			System.out.println("5. Tocar Musica");
-			System.out.println("6. Excluir Musica");
-			System.out.println("7. Atualizar Artista da Musica");
-			System.out.println("8. Atualizar Genero Da Musica");
-			System.out.println("9. Criar playlist de Musicas");
-			System.out.println("10. Adicionar Musicas a uma PlayList");
-			System.out.println("11. Tocar playlist de Musicas");
-			System.out.println("12. Listar Playlist's");
-			System.out.println("13. Excluir Playlist");
-			System.out.println("14. Detectar Musicas");
-			System.out.println("15. Fechar Player");
+			System.out.println("3. Listar Musicas disponíveis");
+			System.out.println("4. Tocar Musica");
+			System.out.println("5. Excluir Musica");
+			System.out.println("6. Criar compartilhamento");
+			System.out.println("7. adicionar músicas ao compartilhamento");
+			System.out.println("8. Adicionar PlayList ao compartilhamento");
+			System.out.println("9. Atualizar Artista da Musica");
+			System.out.println("10. Atualizar Genero Da Musica");
+			System.out.println("11. Criar playlist de Musicas");
+			System.out.println("12. Adicionar Musicas a uma PlayList");
+			System.out.println("13. Tocar playlist de Musicas");
+			System.out.println("14. Listar Playlist's");
+			System.out.println("15. Excluir Playlist");
+			System.out.println("16. Detectar Musicas");
+			System.out.println("17. Fechar Player");
 			System.out.println();
 			System.out.print("Opção: ");
 			mode = sc.nextInt();
 			switch (mode) {
 			case 1:
-				MusicaBO.salvarConfiguracoes();
+				MusicDAOController.salvarConfiguracoes();
 				break;
 			case 2:
-				PlayListBO.salvarPlayLists();
+				PlayListDAOController.salvarPlayLists();
 				break;
 			case 3:
-				restaurarPlayLists();
-				break;
-			case 4:
 				listarMusicas();
 				break;
-			case 5:
+			case 4:
 				tocarMusica();
 				break;
-			case 6: 
+			case 5: 
 				exluirMusica();
 				break;
-			case 7:
-				atualizarArtista();
+			case 6: 
+				adicionarCompartilhamento(usuario);
 				break;
-			case 8:
-				atualizarGenero();
+			case 7:
+				addMusicaCompartilhamento(usuario);
+				break;
+			case 8: 
+				addPlayListCompartilhamento(usuario);
 				break;
 			case 9:
-				criarPlaylist();
+				atualizarArtista();
 				break;
 			case 10:
-				addMusicasPlayList();
+				atualizarGenero();
 				break;
 			case 11:
-				tocarPlaylist();
+				criarPlaylist();
 				break;
 			case 12:
-				listarPlayList();
+				addMusicasPlayList();
 				break;
 			case 13:
-				exluirPlayList();
+				tocarPlaylist();
 				break;
 			case 14:
+				listarPlayList();
+				break;
+			case 15:
+				exluirPlayList();
+				break;
+			case 16:
 				detectarMusicas();
 				break;
-			case 15: 
+			case 17: 
 				System.exit(mode);
 				break;
 			default:
@@ -135,18 +136,58 @@ public class Executor {
 		
 	}
 	
+	private static void adicionarCompartilhamento(Usuario login) {
+		System.out.println("Usuários disponíveis");
+		for (Usuario usuario : UsuarioDAOController.retornarUsuariosOrdenados()) {
+			System.out.println("Nome: " + usuario.getNome());
+		}
+		System.out.println(" ");
+		System.out.print("Digite o nome do usuário: ");
+		String nome = sc.nextLine();
+		System.out.println("Deseja compartilhar alguma musica ou playlist? ");
+		String op = sc.nextLine();
+		if (op.equals("Y") || op.equals("y")) {
+			System.out.println("O que deseja compartilhar? 1 = música, 2 = playlist");
+			Integer option = sc.nextInt();
+			switch (option) {
+			case 1:
+				addMusicaCompartilhamento(login);
+				break;
+			case 2:
+				addPlayListCompartilhamento(login);
+				break;
+			default:
+				System.out.println("Opção invalida");
+				break;
+			}
+		} else {
+			CompartilhamentoController.adicionarCompartilhamento(login, nome);
+		}
+	}
+		
+	
+	private static void addPlayListCompartilhamento(Usuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void addMusicaCompartilhamento(Usuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private static void detectarMusicas() {
 		sc.nextLine();
 		System.out.println("Por favor defina a pasta de suas musicas");
 		String path = sc.nextLine();
-		MusicaBO.setPath(path);
-		MusicaBO.acharMusica();
+		MusicSaveController.setPath(path);
+		MusicSaveController.acharMusica();
 	}
 	
 	private static void exluirMusica() {
 		System.out.println("Digite o código da música a ser excluida");
 		Integer codigo = sc.nextInt();
-		MusicaBO.removerMusica(codigo);
+		MusicDAOController.removerMusica(codigo);
 	}
 
 	private static void listarMusicas() {
@@ -165,7 +206,7 @@ public class Executor {
 	private static void tocarMusica() {
 		System.out.println("Por favor digite o código da música desejada: ");
 		Integer codigo = sc.nextInt();
-		MusicaBO.tocarMusica(codigo);
+		MusicReproductionController.tocarMusica(codigo);
 	}
 
 	private static void atualizarGenero() {
@@ -174,7 +215,7 @@ public class Executor {
 		sc.nextLine();
 		System.out.println("Digite o genero da musica");
 		String genero = sc.nextLine();
-		MusicaBO.atualizarGenero(codigo, genero);
+		MusicUpdateController.atualizarGenero(codigo, genero);
 	}
 
 	private static void atualizarArtista() {
@@ -183,7 +224,7 @@ public class Executor {
 		sc.nextLine();
 		System.out.println("Digite o nome do artista");
 		String artista = sc.nextLine();
-		MusicaBO.adicionarArtista(codigo, artista);
+		MusicUpdateController.adicionarArtista(codigo, artista);
 	}
 
 	private static void addMusicasPlayList() {
@@ -192,20 +233,20 @@ public class Executor {
 		sc.nextLine();
 		System.out.println("Por favor digite o código da PlayList");
 		Integer codPlayList = sc.nextInt();
-		PlayListBO.adicionarMusica(cod, codPlayList);
+		PlayListSaveController.adicionarMusica(cod, codPlayList);
 	}
 
 	private static void exluirPlayList() {
 		System.out.println("Por favor digite o código da playlist a ser ecluida");
 		Integer cod = sc.nextInt();
-		PlayListBO.removerPlayList(cod);
+		PlayListDAOController.removerPlayList(cod);
 	}
 
 
 	private static void tocarPlaylist() {
 		System.out.println("Digite o código da playlist a ser tocada");
 		Integer cod = sc.nextInt();
-		PlayListBO.tocarPlayList(cod);
+		PlayListReproductionController.tocarPlayList(cod);
 	}
 
 	private static void criarPlaylist() {
@@ -214,7 +255,7 @@ public class Executor {
 		String nome = sc.nextLine();
 		System.out.println("Digite o código da sua playlist");
 		Integer cod = sc.nextInt();
-		PlayListBO.cadastrarPlayList(nome, cod);
+		PlayListSaveController.cadastrarPlayList(nome, cod);
 	}
 
 	private static void listarPlayList() {
@@ -229,14 +270,4 @@ public class Executor {
 			}
 		}
 	}
-
-
-	private static void restaurarPlayLists() {
-		try {
-			PlayListBO.restaurarPlayLists();
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}		
-	}
-
 }

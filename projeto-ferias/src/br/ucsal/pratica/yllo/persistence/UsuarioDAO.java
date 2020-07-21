@@ -25,6 +25,7 @@ public class UsuarioDAO {
 	
 	public static void adicionarUsuario(Usuario usuario) { 
 		usuarios.add(usuario);
+		salvarUsuario();
 	}
 	
 	public static void salvarUsuario() { 
@@ -58,7 +59,5 @@ public class UsuarioDAO {
 	public static ArrayList<Usuario> retornarUsuarios() {
 		return new ArrayList<Usuario>(usuarios);
 	}
-	
-	
 	
 }
