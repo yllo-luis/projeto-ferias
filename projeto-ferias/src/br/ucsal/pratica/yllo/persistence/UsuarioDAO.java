@@ -16,10 +16,10 @@ import br.ucsal.pratica.yllo.domain.Usuario;
 import java.util.ArrayList;
 
 public class UsuarioDAO {
-	private final static Path diretorioRelativo = Paths.get(System.getProperty("user.dir"));
-	private final static String arquivo = diretorioRelativo.toString() + File.separatorChar + "usuarios.bin";
-	private final static Path caminhoFinal = diretorioRelativo.resolve(arquivo);
-	private final static File arquivoconfig = new File(caminhoFinal.toAbsolutePath().toString());
+	private final static Path DIRETORIO =  Paths.get(System.getProperty("user.dir"));
+	private final static String ARQUIVO = DIRETORIO.toString() + File.separatorChar + "usuarios.bin";
+	private final static Path CAMINHOFINAL = DIRETORIO.resolve(ARQUIVO);
+	private final static File ARQUIVOFINAL = new File(CAMINHOFINAL.toAbsolutePath().toString());
 
 	private static List<Usuario> usuarios = new ArrayList<Usuario>();
 	
@@ -30,8 +30,8 @@ public class UsuarioDAO {
 	
 	public static void salvarUsuario() { 
 		try {
-			arquivoconfig.createNewFile();
-			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(arquivoconfig));
+			ARQUIVOFINAL.createNewFile();
+			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(ARQUIVOFINAL));
 			for (Usuario usuarios : usuarios) {
 				output.writeObject(usuarios);
 			}
@@ -43,7 +43,7 @@ public class UsuarioDAO {
 	
 	public static void restaurarUsuario() throws IOException { 
 		try {
-			ObjectInputStream input = new ObjectInputStream(new FileInputStream(arquivoconfig));
+			ObjectInputStream input = new ObjectInputStream(new FileInputStream(ARQUIVOFINAL));
 			while (input != null) {
 				Usuario usuario = (Usuario) input.readObject();
 				usuarios.add(usuario);
@@ -52,8 +52,8 @@ public class UsuarioDAO {
 		} catch(EOFException e) { 
 			System.out.println("Leitura sucedida");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+                        System.out.println(e.getException());
+                }
 	}
 	
 	public static ArrayList<Usuario> retornarUsuarios() {

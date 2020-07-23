@@ -12,11 +12,11 @@ public class UsuarioAuthController {
 	public static Usuario Autenticarusuario(String senha, String nome) throws UsuarioException {
 		senha = Hashing.sha256().hashString(senha, StandardCharsets.UTF_8).toString();
 		for(Usuario usuario : UsuarioDAOController.retornarUsuariosOrdenados()) { 
-			if(usuario.getSenha().equals(senha) && usuario.getNome().equals(nome)) { 
+                    if(usuario.getSenha().equals(senha) && usuario.getNome().equals(nome)) { 
 				return usuario;
 			}
 		}
 		throw new UsuarioException("Senha ou usuário invalidos"); 	
 	}
-	
+        
 }
